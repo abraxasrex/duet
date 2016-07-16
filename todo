@@ -1,0 +1,20 @@
+1. Angular components and controllers for:
+  a. master settings
+  b. sandbox rows
+  c. nav / account / container
+  d. ctrlrs: in and out
+
+2. Web Sockets for sending music data:
+
+3. Mongodb lookup for connecting controller addresses:
+  a. Controller
+    1. Schema: drum machine
+    2. Schema: synthesizer
+  b. Composition
+  c. User
+
+4. Integrated timer:
+
+6. Stretch:
+ a. clone controller
+ b. passport
