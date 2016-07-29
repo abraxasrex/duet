@@ -17,9 +17,16 @@ io.on('connection', function(socket) {
     socket.on('chat message', function(msg) {
         io.emit('chat message', msg);
       });
+
       socket.on('midi', function(freq){
         io.emit('midi', freq);
       });
+      
+      socket.on('inst', function(inst) {
+            //  $('#messages').append($('<li>').text(msg));
+          io.emit('inst', inst);
+        });
+
     socket.on('disconnect', function() {
         console.log('user disconnected');
     });

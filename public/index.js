@@ -2,10 +2,17 @@ var socket = io();
 var enviro = flock.init();
 var synth;
 
-$('form').submit(function(){
-  socket.emit('chat message', $('#m').val());
-  $('#m').val('');
-  return false;
+$('form').submit(function() {
+
+    if ($('#m').val().indexOf("inst") != -1) {
+        var valArr = $('#m').val().split(' ');
+        var inst = valArr[valArr.length - 1];
+        socket.emit('inst', inst);
+    }
+
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
 });
 
 $('#midi').submit(function(){
@@ -21,9 +28,7 @@ socket.on('chat message', function(msg) {
             synthDef: {
                 id: 'carrier',
                 ugen: "flock.ugen.sinOsc",
-                //inputs: {
                   freq: 440,
-              //  },
                 mul: {
                     ugen: "flock.ugen.asr",
                     start: 0.0,
@@ -44,15 +49,32 @@ socket.on('chat message', function(msg) {
       socket.emit('chat message', 'got it');
         flock.enviro.shared.stop();
     }
+
 });
 
-socket.on('midi', function(freq){
+socket.on('inst', function(msg) {
+
+    if (instrumentDefs[msg] != undefined) {
+        console.log("inst found");
+        console.log(instrumentDefs[msg]);
+
+        var instrument = instrumentDefs[msg];
+        var synth = flock.synth(instrument);
+
+    } else {
+        console.log("undefined!");
+
+    }
+
+});
+
+
+socket.on('midi', function(freq) {
     $('#messages').append($('<li>').text(freq));
 
     console.log(synth.get("carrier"));
 
     synth.set("carrier.freq", parseInt(freq));
-    //synths.namedNodes["carrier"].inputs.freq.inputs.value = freq;
 });
 
 
