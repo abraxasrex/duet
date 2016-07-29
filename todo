@@ -1,24 +1,8 @@
-1. Angular components and controllers for:
-  a. master settings
-  b. sandbox rows
-  c. nav / account / container
-  d. ctrlrs: in and out
-
-2. Web Sockets for sending music data:
-
-3. Mongodb lookup for connecting controller addresses:
-  a. Controller
-    1. Schema: drum machine
-    2. Schema: synthesizer
-  b. Composition
-  c. User
-
-4. Integrated timer:
-
-6. Stretch:
- a. clone controller
- b. passport
-
-
- - donut at angle is worrisome
- -
+1. Global array of active synths (M)
+2. Generate random synth ID (M)
+3. Make instrument UIs (J)
+4. Midi device integration (J)
+5. Present controller UI (M)
+6. Chatroom Id (J)
+7. noteOn and noteOff events (J)
+8. webMidi integration  (M)

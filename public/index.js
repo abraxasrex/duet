@@ -59,7 +59,7 @@ socket.on('inst', function(msg) {
         console.log(instrumentDefs[msg]);
 
         var instrument = instrumentDefs[msg];
-        var synth = flock.synth(instrument);
+        synth = flock.synth(instrument);
 
     } else {
         console.log("undefined!");
