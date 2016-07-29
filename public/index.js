@@ -8,6 +8,12 @@ $('form').submit(function(){
   return false;
 });
 
+$('#midi').submit(function(){
+  socket.emit('midi', $('#m2').val());
+  $('#m2').val('');
+  return false;
+});
+
 socket.on('chat message', function(msg) {
     $('#messages').append($('<li>').text(msg));
     if (msg == "play") {
@@ -15,9 +21,9 @@ socket.on('chat message', function(msg) {
             synthDef: {
                 id: 'carrier',
                 ugen: "flock.ugen.sinOsc",
-                inputs: {
-                  freq: 440
-                },
+                //inputs: {
+                  freq: 440,
+              //  },
                 mul: {
                     ugen: "flock.ugen.asr",
                     start: 0.0,
@@ -35,15 +41,18 @@ socket.on('chat message', function(msg) {
         });
         flock.enviro.shared.play();
     } else if (msg == "stop") {
-      io.emit('chat message', 'got it');
+      socket.emit('chat message', 'got it');
         flock.enviro.shared.stop();
     }
 });
 
 socket.on('midi', function(freq){
     $('#messages').append($('<li>').text(freq));
-    synth.set("carrier.freq", freq);
 
+    console.log(synth.get("carrier"));
+
+    synth.set("carrier.freq", parseInt(freq));
+    //synths.namedNodes["carrier"].inputs.freq.inputs.value = freq;
 });
 
 

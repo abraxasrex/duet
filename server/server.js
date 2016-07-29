@@ -13,10 +13,12 @@ app.get('/', function(req, res) {
 app.use(express.static(path.join(__dirname, '../public')));
 
 io.on('connection', function(socket) {
-    socket.broadcast.emit('hi');
+    //socket.broadcast.emit('hi');
     socket.on('chat message', function(msg) {
-          //  $('#messages').append($('<li>').text(msg));
         io.emit('chat message', msg);
+      });
+      socket.on('midi', function(freq){
+        io.emit('midi', freq);
       });
     socket.on('disconnect', function() {
         console.log('user disconnected');
