@@ -18,6 +18,13 @@ io.on('connection', function(socket) {
           //  $('#messages').append($('<li>').text(msg));
         io.emit('chat message', msg);
       });
+
+
+      socket.on('inst', function(inst) {
+            //  $('#messages').append($('<li>').text(msg));
+          io.emit('inst', inst);
+        });
+
     socket.on('disconnect', function() {
         console.log('user disconnected');
     });
