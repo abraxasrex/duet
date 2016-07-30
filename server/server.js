@@ -21,7 +21,13 @@ io.on('connection', function(socket) {
       socket.on('midi', function(freq){
         io.emit('midi', freq);
       });
-      
+
+      socket.on('noteOn', function(data){
+        io.emit('noteOn', data);
+      });
+
+
+
       socket.on('inst', function(inst) {
             //  $('#messages').append($('<li>').text(msg));
           io.emit('inst', inst);
