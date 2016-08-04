@@ -1,21 +1,19 @@
 <!doctype html>
 <html>
   <head>
-    <title>Duet.io</title>
-    <link href ="stylesheets/main.css" rel="stylesheet">
+    <title>Duet.io: Home</title>
+    <!-- <link href ="stylesheets/main.css" rel="stylesheet"> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="lib/flocking-all.min.js"></script>
+    <!-- <script src="lib/flocking-all.min.js"></script>
     <script src="scripts/insts.js"></script>
-<script src="scripts/midi.js"></script>
+<script src="scripts/midi.js"></script> -->
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="" id="chat">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <form action="" id="midi">
-      <input id="m2" autocomplete="off" /><button>Send Midi</button>
+    <form id ="chat-id-form">
+      <label for="chat-id">Session Room Id:</label>
+      <input name="chat-id" id="chat-id" value="">
+      <input type ="submit" id ="submit-chat" value="Go">
     </form>
     <script src="index.js"></script>
   </body>

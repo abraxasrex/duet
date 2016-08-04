@@ -3,6 +3,9 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var flock = require('flocking');
 
@@ -26,8 +29,6 @@ io.on('connection', function(socket) {
         io.emit('noteOn', data);
       });
 
-
-
       socket.on('inst', function(inst) {
             //  $('#messages').append($('<li>').text(msg));
           io.emit('inst', inst);
@@ -37,6 +38,20 @@ io.on('connection', function(socket) {
         console.log('user disconnected');
     });
 });
+
+// chatroom ids //
+
+var jwt = require('jsonwebtoken');
+var verified_id = '1234';
+
+app.post('/api', function (req, res) {
+  console.log(req.body.chatId);
+  if(req.body.chatId === verified_id){
+  //  res.sendFile(path.join(__dirname, '../public', 'duet.html'));
+    res.json({token: '5678', verified:true});
+   }
+});
+
 
 http.listen(3000, "0.0.0.0", function() {
     console.log('listening on *:3000');
