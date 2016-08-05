@@ -1,7 +1,7 @@
 var socket = io();
 var enviro = flock.init();
 var userInst = instrumentDefs["customSine"];
-
+var current_users =[];
 
 $('form').submit(function() {
 
@@ -21,6 +21,18 @@ $('#midi').submit(function() {
     $('#m2').val('');
     return false;
 });
+
+  var userId = parseInt(Math.floor(Math.random() * 9999));
+  socket.emit('newUser', userId);
+
+  socket.on('newUser', function(id){
+    console.log('a new user approaches!');
+    current_users.push(id);
+    current_users.forEach(function(id){
+      $('#users').append('<li>' + id + '</li>');
+    });
+  });
+
 
 socket.on('chat message', function(msg) {
     $('#messages').append($('<li>').text(msg));
