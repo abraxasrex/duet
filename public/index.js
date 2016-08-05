@@ -25,26 +25,6 @@ $('#midi').submit(function() {
 socket.on('chat message', function(msg) {
     $('#messages').append($('<li>').text(msg));
     if (msg == "play") {
-        // synth = flock.synth({
-        //     synthDef: {
-        //         id: 'carrier',
-        //         ugen: "flock.ugen.sinOsc",
-        //           freq: 440,
-        //         mul: {
-        //             ugen: "flock.ugen.asr",
-        //             start: 0.0,
-        //             attack: 0.25,
-        //             sustain: 0.25,
-        //             release: 1.0,
-        //             gate: {
-        //                 ugen: "flock.ugen.impulse",
-        //                 rate: "control",
-        //                 freq: 0.75,
-        //                 phase: 1.0
-        //             }
-        //         }
-        //     }
-        // });
         flock.enviro.shared.play();
     } else if (msg == "stop") {
         socket.emit('chat message', 'stopping enviro');
@@ -71,8 +51,6 @@ socket.on('inst', function(msg) {
 
 socket.on('midi', function(freq) {
     $('#messages').append($('<li>').text(freq));
-
-    console.log(synth.get("carrier"));
 
     synth.set("carrier.freq", parseInt(freq));
 });
@@ -108,6 +86,14 @@ socket.on('noteOn', function(data) {
     }
 
 });
+
+
+//Inst choice
+$(".instbutton").click(function(e){
+  var inst = e.target.id;
+  console.log(inst);
+  socket.emit('inst', inst);
+})
 
 
 enviro.start();
