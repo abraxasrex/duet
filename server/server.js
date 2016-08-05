@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
 
           console.log(inst);
           for (user in users) {
-            if (users[user].id = inst.userId){
+            if (users[user].id == inst.userId){
               console.log("user " + users[user].id + " inst is now " + inst.inst)
           users[user].inst = inst.inst;
             }
