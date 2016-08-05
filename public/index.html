@@ -1,21 +1,62 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Duet.io: Home</title>
-    <!-- <link href ="stylesheets/main.css" rel="stylesheet"> -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <!-- <script src="lib/flocking-all.min.js"></script>
-    <script src="scripts/insts.js"></script>
-<script src="scripts/midi.js"></script> -->
-  </head>
-  <body>
-    <a href="./duet.html"><h1> Go to chatroom </h1></a>
-    <form id ="chat-id-form">
-      <label for="chat-id">Session Room Id:</label>
-      <input name="chat-id" id="chat-id" value="">
-      <input type ="submit" id ="submit-chat" value="Go">
-    </form>
-    <script src="index.js"></script>
-  </body>
-</html>
+    <head>
+        <title>Duet.io</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="stylesheets/main.css" rel="stylesheet">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="lib/flocking-all.min.js"></script>
+        <script src="scripts/insts.js"></script>
+        <script src="scripts/midi.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+          <ul id="users">
+          </ul>
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <ul id="messages"></ul>
+                </div>
+            </div>
+
+            <div class="row dashboard">
+                <div class="col-xs-12">
+                    <button class="instbutton">
+                        <img class="img-responsive instpic" id="customSine" src="./resources/images/noise.png" value="customSine"/>
+                    </button>
+                    <button class="instbutton">
+                        <img class="img-responsive instpic" id="saw" src="./resources/images/saw.png" value="saw"/>
+                    </button>
+                    <button class="instbutton">
+                        <img class="img-responsive instpic" id="sine" src="./resources/images/sine.png" value="sine"/>
+                    </button>
+                    <button class="instbutton">
+                        <img class="img-responsive instpic" id="square" src="./resources/images/square.png" value="square"/>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row input1">
+                <div class="col-xs-12">
+                    <form action="" id="chat">
+                        <input id="m" autocomplete="off"/>
+                        <button>Send</button>
+                    </form>
+
+                </div>
+            </div>
+            <div class="row input2">
+                <div class="col-xs-12">
+                    <form action="" id="midi">
+                        <input id="m2" autocomplete="off"/>
+                        <button>Send Midi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+  </html>

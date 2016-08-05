@@ -32,7 +32,7 @@ var instrumentDefs = {
     },
     saw: {
         synthDef: {
-                      id: 'carrier',
+            id: 'carrier',
             ugen: "flock.ugen.saw",
             freq: 440,
         }
@@ -40,14 +40,14 @@ var instrumentDefs = {
     },
     square: {
         synthDef: {
-                      id: 'carrier',
+            id: 'carrier',
             ugen: "flock.ugen.square",
             freq: 440,
         }
     },
     triangle: {
         synthDef: {
-                      id: 'carrier',
+            id: 'carrier',
             ugen: "flock.ugen.tri",
             freq: 440,
         }
