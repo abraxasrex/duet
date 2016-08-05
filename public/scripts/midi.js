@@ -27,5 +27,6 @@ function onMIDIFailure(e) {
 function onMIDIMessage(message) {
   data = message.data;
   console.log('MIDI data ', data);
-    socket.emit('noteOn', data);
+  var noteOn = {'userId': userId, 'MIDIdata': data};
+    socket.emit('noteOn', noteOn);
 }

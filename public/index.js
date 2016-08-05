@@ -1,17 +1,17 @@
 var socket = io();
-var current_users =[];
+var current_users = [];
 var enviro = flock.init();
 var userInst = instrumentDefs["customSine"];
 
 var userId = parseInt(Math.floor(Math.random() * 9999));
 socket.emit('newUser', userId);
 
-socket.on('newUser', function(id){
-  console.log('a new user approaches!');
-  current_users.push(id);
-  current_users.forEach(function(id){
-    $('#users').append('<li>' + id + '</li>');
-  });
+socket.on('newUser', function(id) {
+    console.log('a new user approaches!');
+    current_users.push(id);
+    current_users.forEach(function(id) {
+        $('#users').append('<li>' + id + '</li>');
+    });
 });
 
 $('form').submit(function() {
@@ -44,20 +44,20 @@ socket.on('chat message', function(msg) {
 
 });
 
-socket.on('inst', function(msg) {
-
-    if (instrumentDefs[msg] != undefined) {
-        console.log("inst found");
-
-        userInst = instrumentDefs[msg];
-        console.log("Instrument is now: " + msg);
-
-    } else {
-        console.log("undefined!");
-
-    }
-
-});
+// socket.on('inst', function(msg) {
+//
+//     if (instrumentDefs[msg] != undefined) {
+//         console.log("inst found");
+//
+//         userInst = instrumentDefs[msg];
+//         console.log("Instrument is now: " + msg);
+//
+//     } else {
+//         console.log("undefined!");
+//
+//     }
+//
+// });
 
 
 socket.on('midi', function(freq) {
@@ -66,19 +66,18 @@ socket.on('midi', function(freq) {
     synth.set("carrier.freq", parseInt(freq));
 });
 
-socket.on('noteOn', function(data) {
-
-    var notePitch = data[1];
-    var noteVel = data[2];
+socket.on('noteOn', function(noteOn) {
+  console.log(noteOn);
+    var notePitch = noteOn.MIDIdata[1];
+    var noteVel = noteOn.MIDIdata[2];
 
     // $('#messages').append($('<li>').text("Pitch: " + notePitch + " , Velocity: " + noteVel));
-
+    console.log(noteOn.inst);
     if (noteVel != 0) {
-        var synth = flock.synth(userInst);
-        synth.set('carrier.freq', flock.midiFreq(data[1]));
+        var synth = flock.synth(instrumentDefs[noteOn.inst]);
+        synth.set('carrier.freq', flock.midiFreq(notePitch));
         // enviro.tail(synth);
         setTimeout(function() {
-
             synth.pause();
         }, 1200);
         // noteID = synth.id;
@@ -100,11 +99,13 @@ socket.on('noteOn', function(data) {
 
 
 //Inst choice
-$(".instbutton").click(function(e){
-  var inst = e.target.id;
-  console.log(inst);
-  socket.emit('inst', inst);
-})
+$(".instbutton").click(function(e) {
+
+
+    var inst = {userId: userId, inst: e.target.id}
+    socket.emit('inst', inst);
+    console.log(inst);
+});
 
 
 enviro.start();

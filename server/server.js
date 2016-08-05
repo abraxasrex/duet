@@ -41,12 +41,12 @@ io.on('connection', function(socket) {
 
     socket.on('newUser', function(id){
         // User.create({ id: id });
-        users.push(id);
+        users.push({id: id, inst: 'sine'});
         io.emit('newUser', id);
         io.emit('activeUsers', users);
         console.log('id: ', id);
     });
-    
+
     socket.on('activeUsers', function(users){
       io.emit('activeUsers', users);
     });
@@ -55,12 +55,29 @@ io.on('connection', function(socket) {
         io.emit('chat message', msg);
       });
 
-      socket.on('noteOn', function(data){
-        io.emit('noteOn', data);
+      socket.on('noteOn', function(noteOn){
+        var inst;
+        for (user in users) {
+          if (users[user].id == noteOn.userId){
+            console.log("matched user!");
+            inst = users[user].inst;
+          }
+        }
+        noteOn.inst = inst;
+        io.emit('noteOn', noteOn);
       });
 
       socket.on('inst', function(inst) {
-          io.emit('inst', inst);
+
+          console.log(inst);
+          for (user in users) {
+            if (users[user].id = inst.userId){
+              console.log("user " + users[user].id + " inst is now " + inst.inst)
+          users[user].inst = inst.inst;
+            }
+          }
+
+          console.log(inst);
         });
 
     socket.on('disconnect', function() {
